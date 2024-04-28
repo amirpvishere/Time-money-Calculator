@@ -1,8 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
-import openpyxl
+import openpyxl as xl
 
-
+data = []
 windows = Tk()
 windows.geometry('900x650')
 windows.title('GameNet Calculator')
@@ -39,64 +39,66 @@ label11.place(x=700, y=350)
 label12.place(x=735, y=320)
 
 # OUTPUT LABEL:
-javab1 = Label(text='', fg='white', bg='black')
-javab1.place(x=150, y=250)
+answer1 = Label(text='', fg='white', bg='black')
+answer1.place(x=150, y=250)
 
-javab2 = Label(text='', fg='white', bg='black')
-javab2.place(x=450, y=250)
+answer2 = Label(text='', fg='white', bg='black')
+answer2.place(x=450, y=250)
 
-javab3 = Label(text='', fg='white', bg='black')
-javab3.place(x=750, y=250)
+answer3 = Label(text='', fg='white', bg='black')
+answer3.place(x=750, y=250)
 
-javab4 = Label(text='', fg='white', bg='black')
-javab4.place(x=150, y=550)
+answer4 = Label(text='', fg='white', bg='black')
+answer4.place(x=150, y=550)
 
-javab5 = Label(text='', fg='white', bg='black')
-javab5.place(x=450, y=550)
+answer5 = Label(text='', fg='white', bg='black')
+answer5.place(x=450, y=550)
 
-javab6 = Label(text='', fg='white', bg='black')
-javab6.place(x=750, y=550)
+answer6 = Label(text='', fg='white', bg='black')
+answer6.place(x=750, y=550)
 
 
 # BUTTON:
-def mohasebe6():
-    vorodis = int(inputs1.get())
-    vorodid = int(inputs2.get())
-    khorojis = int(inputs3.get())
-    khorojid = int(inputs4.get())
+def calculator6():
+    hour_input = int(inputs1.get())
+    minute_input = int(inputs2.get())
+    hour_output = int(inputs3.get())
+    minute_output = int(inputs4.get())
 
-    if vorodid > 59:
+    if minute_input > 59:
         messagebox.showerror("Minutes is wrong!", "Please enter a number between 0 and 59!")
-    elif khorojid > 59:
+    elif minute_output > 59:
         messagebox.showerror("Minutes is wrong!", "Please enter a number between 0 and 59!")
     else:
         pass
-    if vorodis > 23:
+    if hour_input > 23:
         messagebox.showerror("Hour is wrong!", "Please enter a number between 0 and 59!")
-    elif khorojis > 23:
+    elif hour_output > 23:
         messagebox.showerror("Hour is wrong!", "Please enter a number between 0 and 59!")
     else:
         pass
 
-    if khorojis < vorodis:
-        khorojis = khorojis + 24
+    if hour_output < hour_input:
+        hour_output = hour_output + 24
 
-    javab = ((((khorojis * 60) + khorojid) - ((vorodis * 60) + vorodid)) * 100)
-    baqim = javab % 1000
-    javab = javab - baqim
-    if baqim <= 250:
-        baqim = 0
-        javab = javab + baqim
-    elif 250 < baqim <= 500:
-        baqim = 500
-        javab = javab + baqim
-    elif 500 <= baqim < 750:
-        baqim = 500
-        javab = javab + baqim
-    elif 750 >= baqim > 1000:
-        baqim = 1000
-        javab = javab + baqim
-    javab6.config(text=str(javab))
+    answer = ((((hour_output * 60) + minute_output) - ((hour_input * 60) + minute_input)) * 100)
+    remaining = answer % 1000
+    answer = answer - remaining
+    if remaining <= 250:
+        remaining = 0
+        answer = answer + remaining
+    elif 250 < remaining <= 500:
+        remaining = 500
+        answer = answer + remaining
+    elif 500 <= remaining < 750:
+        remaining = 500
+        answer = answer + remaining
+    elif 750 >= remaining > 1000:
+        remaining = 1000
+        answer = answer + remaining
+    answer6.config(text=str(answer))
+    text = answer1.cget("text")
+    data.append(int(text))
     if cal2:
         inputs1.delete(0, END),
         inputs2.delete(0, END),
@@ -104,11 +106,11 @@ def mohasebe6():
         inputs4.delete(0, END)
 
 
-cal2 = Button(text='محاسبه', command=mohasebe6, fg='white', bg='black')
+cal2 = Button(text='Calculate', command=calculator6, fg='white', bg='black')
 cal2.place(x=750, y=500)
 
 
-def mohasebe5():
+def calculator5():
     vorodis = int(inputdp1.get())
     vorodid = int(inputdp2.get())
     khorojis = int(inputdp3.get())
@@ -145,7 +147,9 @@ def mohasebe5():
     elif 750 >= baqim > 1000:
         baqim = 1000
         javab = javab + baqim
-    javab5.config(text=str(javab))
+    answer5.config(text=str(javab))
+    text = answer1.cget("text")
+    data.append(int(text))
     if cal2:
         inputdp1.delete(0, END),
         inputdp2.delete(0, END),
@@ -153,7 +157,7 @@ def mohasebe5():
         inputdp4.delete(0, END)
 
 
-cal2 = Button(text='محاسبه', command=mohasebe5, fg='white', bg='black')
+cal2 = Button(text='محاسبه', command=calculator5, fg='white', bg='black')
 cal2.place(x=450, y=500)
 
 
@@ -194,7 +198,9 @@ def mohasebe4():
     elif 750 >= baqim > 1000:
         baqim = 1000
         javab = javab + baqim
-    javab4.config(text=str(javab))
+    answer4.config(text=str(javab))
+    text = answer1.cget("text")
+    data.append(int(text))
     if cal2:
         inputdc1.delete(0, END),
         inputdc2.delete(0, END),
@@ -243,7 +249,9 @@ def mohasebe3():
     elif 750 >= baqim > 1000:
         baqim = 1000
         javab = javab + baqim
-    javab3.config(text=str(javab))
+    answer3.config(text=str(javab))
+    text = answer1.cget("text")
+    data.append(int(text))
     if cal2:
         inputds1.delete(0, END),
         inputds2.delete(0, END),
@@ -292,7 +300,9 @@ def mohasebe2():
     elif 750 >= baqim > 1000:
         baqim = 1000
         javab = javab + baqim
-    javab2.config(text=str(javab))
+    answer2.config(text=str(javab))
+    text = answer1.cget("text")
+    data.append(int(text))
     if cal2:
         inputdd1.delete(0, END),
         inputdd2.delete(0, END),
@@ -341,7 +351,9 @@ def mohasebe1():
     elif 750 >= baqim > 1000:
         baqim = 1000
         javab = javab + baqim
-    javab1.config(text=str(javab))
+    answer1.config(text=str(javab))
+    text = answer1.cget("text")
+    data.append(int(text))
     if cal2:
         inputdy1.delete(0, END),
         inputdy2.delete(0, END),
@@ -408,3 +420,15 @@ inputdy4 = Entry(windows)
 inputdy4.place(x=175, y=150, width=40, height=25)
 
 windows.mainloop()
+
+def excel_processor(name):
+    wb = xl.load_workbook(name)
+    sheet = wb["Sheet1"]
+
+    for i, value in enumerate(data, start=2):
+        sheet.cell(row=2, column=i, value=value)
+    wb.save(name)
+
+
+excel_processor("Data.xlsx")
+
